@@ -14,19 +14,20 @@ fun fixLine(row: CSVRecord): MutableList<String> {
         if (i == 0) {
             result.add(row.recordNumber.toString())
         }
-        result.add(col)
         if (i == 1) {
             result.add(col.toLowerCase())
         }
+        result.add(col)
     }
     return result
 }
 
 fun main() {
-    var fileReader = BufferedReader(FileReader("user_profiles.csv"))
+    val csvFormat = CSVFormat.DEFAULT.withRecordSeparator("\n")
+    val fileReader = BufferedReader(FileReader("user_profiles.csv"))
     val fileWriter = BufferedWriter(FileWriter("user_profiles_3.csv"))
-    val csvParser = CSVParser(fileReader, CSVFormat.DEFAULT)
-    val csvPrinter = CSVPrinter(fileWriter, CSVFormat.DEFAULT)
+    val csvParser = CSVParser(fileReader, csvFormat)
+    val csvPrinter = CSVPrinter(fileWriter, csvFormat)
     
     for (csvRecord in csvParser) {
         val newRow = fixLine(csvRecord)
